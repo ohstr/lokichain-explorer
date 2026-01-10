@@ -4,17 +4,15 @@
     <div class="row main" [class]="{'services': isServicesPage}">
       <div class="col-md-12 branding mt-2">
         <div class="main-logo" [class]="{'services': isServicesPage}">
-          @if (enterpriseInfo?.footer_img) {
-            <img [src]="enterpriseInfo?.footer_img" [alt]="enterpriseInfo.title" height="60px" class="enterprise-logo">
-          } @else {
-            <app-svg-images *ngIf="officialMempoolSpace" name="officialMempoolSpace" viewBox="0 0 500 126"></app-svg-images>
-            <app-svg-images *ngIf="!officialMempoolSpace" name="mempoolSpace" viewBox="0 0 500 126"></app-svg-images>
-          }
+            <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+              <img src="/resources/loki.svg" height="42px" class="mr-2" alt="Lokichain">
+              <span style="font-size: 22px; font-weight: bold; color: white; line-height: 1; padding-top: 4px;">Lokichain</span>
+            </div>
         </div>
         @if (!enterpriseInfo?.footer_img) {
           <p class="explore-tagline-mobile">
             @if (officialMempoolSpace) {
-              <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Flokicoin ecosystem</ng-container>
+              <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Lokichain ecosystem</ng-container>
               <ng-template [ngIf]="locale.substr(0, 2) === 'en'">&reg;</ng-template>  
             } @else {
               <!-- <ng-container i18n="shared.be-your-own-explorer"></ng-container>
@@ -58,7 +56,7 @@
           </a>
           <p class="explore-tagline-desktop">
             @if (officialMempoolSpace) {
-              <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Flokicoin ecosystem</ng-container>
+              <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Lokichain ecosystem</ng-container>
               <ng-template [ngIf]="locale.substr(0, 2) === 'en'">&reg;</ng-template>  
             } @else {
               <!-- <ng-container i18n="shared.be-your-own-explorer"></ng-container>
@@ -89,7 +87,7 @@
           <p *ngIf="mempoolSpaceBuild"><a [routerLink]="['/research' | relativeUrl]" i18n="mempool-research">Research</a></p>
         </div>
 
-        <div class="links" *ngIf="officialMempoolSpace || env.TESTNET_ENABLED || env.TESTNET4_ENABLED || env.SIGNET_ENABLED || env.LIQUID_ENABLED || env.LIQUID_TESTNET_ENABLED else toolBox" >
+        <div class="links" *ngIf="env.TESTNET_ENABLED || env.TESTNET4_ENABLED || env.SIGNET_ENABLED || env.LIQUID_ENABLED || env.LIQUID_TESTNET_ENABLED else toolBox" >
           <p class="category" i18n="footer.networks">Networks</p>
           <p *ngIf="(officialMempoolSpace || (env.BASE_MODULE === 'mempool')) && (currentNetwork !== '') && (currentNetwork !== 'mainnet')"><a [href]="networkLink('mainnet')" i18n="footer.mainnet-explorer">Mainnet Explorer</a></p>
           <p *ngIf="(officialMempoolSpace || (env.BASE_MODULE === 'mempool')) && (currentNetwork !== 'testnet') && env.TESTNET_ENABLED"><a [href]="networkLink('testnet')" i18n="footer.testnet3-explorer">Testnet</a></p>

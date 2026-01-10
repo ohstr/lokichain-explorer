@@ -355,7 +355,7 @@ export class BlockchainBlocksComponent implements OnInit, OnChanges, OnDestroy {
       //   ${this.gradientColors[this.network][0]} ${Math.max(greenBackgroundHeight, 0)}%,
       //   ${this.gradientColors[this.network][1]} 100%
       // )`,
-      background: `linear-gradient(to bottom, #f79422, #e9c300)`, // #FLZ_CHANGE
+      background: `linear-gradient(rgb(247, 148, 34), rgb(229 161 82 / 55%))`,
       transition: animateEnterFrom ? 'background 2s, transform 1s' : null,
     };
   }

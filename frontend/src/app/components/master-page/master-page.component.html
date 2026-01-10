@@ -17,17 +17,19 @@
 
   <!-- Large screen -->
   <a class="navbar-brand d-none d-md-flex align-items-center" [routerLink]="['/' | relativeUrl]" (click)="brandClick($event)">
-    <img src="/resources/loki.svg" height="48px" class="mr-3" alt="Lokichain">
-    <span style="font-size: 24px; font-weight: bold; color: white;">Lokichain</span>
+    <div class="d-flex align-items-center">
+      <img src="/resources/loki.svg" height="42px" class="mr-2" alt="Lokichain">
+      <span style="font-size: 22px; font-weight: bold; color: white; line-height: 1; padding-top: 4px;">Lokichain</span>
+    </div>
   </a>
 
   <!-- Mobile -->
   <a class="navbar-brand d-flex d-md-none justify-content-center align-items-center" [routerLink]="['/' | relativeUrl]" (click)="brandClick($event)">
-    <img src="/resources/loki.svg" height="42px" class="mr-2" alt="Lokichain">
-    <span style="font-size: 20px; font-weight: bold; color: white;">Lokichain</span>
+    <img src="/resources/loki.svg" height="38px" class="mr-2" alt="Lokichain">
+    <span style="font-size: 20px; font-weight: bold; color: white; line-height: 1; padding-top: 3px;">Lokichain</span>
   </a>
 
-  <div (window:resize)="onResize()" ngbDropdown class="dropdown-container" *ngIf="isDropdownVisible">
+  <div (window:resize)="onResize()" ngbDropdown class="dropdown-container" *ngIf="false">
     <button ngbDropdownToggle type="button" class="btn btn-secondary dropdown-toggle-split d-flex justify-content-center align-items-center" aria-haspopup="true">
       <app-svg-images class="d-flex justify-content-center align-items-center current-network-svg" [name]="currentNetworkIcon" width="20" height="20" viewBox="0 0 65 65"></app-svg-images>
     </button>

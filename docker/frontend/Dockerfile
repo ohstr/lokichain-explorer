@@ -16,7 +16,7 @@ RUN npm install --omit=dev --omit=optional
 RUN npm run build
 
 FROM nginx:1.29.0-alpine
-LABEL org.opencontainers.image.source="https://github.com/myfloki/operator-plus"
+LABEL org.opencontainers.image.source="https://github.com/ohstr/lokichain-explorer"
 
 WORKDIR /patch
 

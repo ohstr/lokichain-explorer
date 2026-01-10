@@ -13,8 +13,8 @@ export class NavigationService {
   networkModules = {
     bitcoin: {
       subnets: [
-        { name: 'mainnet', path: 'https://flokichain.info/' },
-        { name: 'testnet', path: this.stateService.env.ROOT_NETWORK === 'testnet' ? '/' : 'https://testnet.flokichain.info/' },
+        { name: 'mainnet', path: 'https://lokichain.info/' },
+        { name: 'testnet', path: this.stateService.env.ROOT_NETWORK === 'testnet' ? '/' : 'https://testnet.lokichain.info/' },
         { name: 'testnet4', path: this.stateService.env.ROOT_NETWORK === 'testnet4' ? '/' : '/testnet4' },
         { name: 'signet', path: this.stateService.env.ROOT_NETWORK === 'signet' ? '/' : '/signet' },
       ],
