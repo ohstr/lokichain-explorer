@@ -67,6 +67,7 @@ services:
       # TESTNET_ENABLED: true
       MAINNET_ENABLED: true
       ROOT_NETWORK: mainnet
+      LIGHTNING: "false"
 
   explorer_api:
     hostname: explorer-api
@@ -103,6 +104,12 @@ services:
       DATABASE_PASSWORD: "mempool"
 
       STATISTICS_ENABLED: "true"
+
+      LIGHTNING_ENABLED: "false"
+      LIGHTNING_BACKEND: "lnd"
+      LND_REST_API_URL: "https://127.0.0.1:5050"
+      LND_TLS_CERT_PATH: "/path/to/tls.cert"
+      LND_MACAROON_PATH: "/path/to/admin.macaroon"
     user: "1000:1000"
     restart: on-failure
     stop_grace_period: 1m
