@@ -1,0 +1,128 @@
+
+services:
+  flokicoin_peer:
+    image: ghcr.io/myfloki/flokicoin:0.25.9-beta
+    hostname: mainnet-flokicoin-peer
+    container_name: mainnet-flokicoin-peer
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "15212:15212"
+      - "15213:15213"
+    volumes:
+      - ./data/peer:/node
+    command: "lokid -C=/node/lokid.conf --txindex"
+  
+  electrum:
+    hostname: electrum
+    container_name: electrum
+    image: ghcr.io/myfloki/electrs:0.1.1-beta
+    ports:
+      - "50001:50001"
+      - "3000:3000"
+    volumes:
+      - ./data/electrum:/data
+    environment:
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 1m
+      timeout: 10s
+      retries: 2
+      start_period: 10m
+    restart: always
+    command: >
+      electrs -vvv
+        --address-search
+        --network mainnet
+        --db-dir /data
+        --jsonrpc-import
+        --daemon-rpc-addr mainnet-flokicoin-peer:15213
+        --electrum-rpc-addr 0.0.0.0:50001
+        --http-addr 0.0.0.0:3000
+        --cookie user:pass
+        --enable-json-rpc-logging
+        --index-unspendables
+
+
+
+  explorer_web:
+    hostname: explorer-web
+    container_name: explorer-web
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
+      additional_contexts:
+        docker: ./docker
+        root: .
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    command: "./wait-for explorer-db:3306 --timeout=720 -- nginx -g 'daemon off;'"
+    ports:
+      - 80:8080
+    environment:
+      FRONTEND_HTTP_PORT: "8080"
+      BACKEND_MAINNET_HTTP_HOST: "explorer-api"
+      # TESTNET_ENABLED: true
+      MAINNET_ENABLED: true
+      ROOT_NETWORK: mainnet
+
+  explorer_api:
+    hostname: explorer-api
+    container_name: explorer-api
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+      additional_contexts:
+        backend: ./backend
+        rustgbt: ./rust
+        docker: ./docker/backend
+    environment:
+      MEMPOOL_STDOUT_LOG_MIN_PRIORITY: "debug"
+      MEMPOOL_BLOCKS_SUMMARIES_INDEXING: true
+      MEMPOOL_INDEXING_BLOCKS_AMOUNT: 10
+      
+      MEMPOOL_NETWORK: "mainnet"
+
+      MEMPOOL_BACKEND: "esplora"
+      ESPLORA_REST_API_URL: http://electrum:3000
+
+      MEMPOOL_AUTOMATIC_POOLS_UPDATE: true
+      MEMPOOL_POOLS_JSON_URL: "https://raw.githubusercontent.com/myfloki/community-tools/main/assets/pools.json"
+
+      CORE_RPC_HOST: "mainnet-flokicoin-peer"
+      CORE_RPC_PORT: "15213"
+      CORE_RPC_USERNAME: "user"
+      CORE_RPC_PASSWORD: "pass"
+
+      DATABASE_ENABLED: "true"
+      DATABASE_HOST: "explorer-db"
+      DATABASE_DATABASE: "mempool"
+      DATABASE_USERNAME: "mempool"
+      DATABASE_PASSWORD: "mempool"
+
+      STATISTICS_ENABLED: "true"
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    command: "./wait-for-it.sh explorer-db:3306 --timeout=720 --strict -- ./start.sh"
+    volumes:
+      - ./data/api:/backend/cache
+
+  explorer_db:
+    hostname: explorer-db
+    container_name: explorer-db
+    image: mariadb:10.5.21
+    environment:
+      MYSQL_DATABASE: "mempool"
+      MYSQL_USER: "mempool"
+      MYSQL_PASSWORD: "mempool"
+      MYSQL_ROOT_PASSWORD: "admin"
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
