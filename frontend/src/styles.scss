@@ -1,14 +1,14 @@
 /* Theme */
-$bg: #1d1f31;
-$active-bg: #11131f;
-$hover-bg: #12131e;
+$bg: #2b3622;
+$active-bg: #1f2918;
+$hover-bg: #242e1b;
 $fg: #fff;
 $nav-bg: $bg;
-$title-fg: #4a68b9;
+$title-fg: #cc7504;
 
-$taproot: #eba814;
-$taproot-light: #d5a90a;
-$taproot-dark: #9d7c05;
+$taproot: #cc7504;
+$taproot-light: #e6951b;
+$taproot-dark: #995803;
 
 /* Bootstrap */
 $body-bg: $bg;
@@ -18,9 +18,9 @@ $gray-700: $fg;
 
 $nav-tabs-link-active-bg: $active-bg;
 
-$primary: #105fb0;
-$secondary: #2d3348;
-$tertiary: #ff9900;
+$primary: #cc7504;
+$secondary: #1f2b22;
+$tertiary: #cc7504;
 $success: #1a9436;
 $info: #f4d7ac;
 
@@ -76,13 +76,13 @@ $dropdown-link-active-bg: $active-bg;
   --link-color: #{$link-color};
   --link-hover-color: #{$link-hover-color};
   --icon: #f1f1f1;
-  --skeleton-bg: #2e324e;
-  --skeleton-bg-light: #5d6182;
+  --skeleton-bg: #38422f;
+  --skeleton-bg-light: #455239;
 
-  --box-bg: #24273e;
-  --stat-box-bg: #181b2d;
-  --alert-bg: #3a1c61;
-  --navbar-bg: #212121;
+  --box-bg: #2b3522;
+  --stat-box-bg: #26301d;
+  --alert-bg: #1f2b22;
+  --navbar-bg: #222b1b;
   --transparent-fg: #ffffff66;
   --fade-out-box-bg-start: rgba(36, 39, 62, 0);
   --fade-out-box-bg-end: rgba(36, 39, 62, 1);
@@ -98,9 +98,9 @@ $dropdown-link-active-bg: $active-bg;
   --signet-alt: #471850;
   --liquidtestnet-alt: #272e46;
 
-  --taproot: #eba814;
-  --taproot-light: #d5a90a;
-  --taproot-dark: #9d7c05;
+  --taproot: #cc7504;
+  --taproot-light: #e6951b;
+  --taproot-dark: #995803;
 
   --green: #3bcc49;
   --red: #dc3545;
@@ -1325,7 +1325,7 @@ th {
 
 .blink-bg {
   color: #fff;
-  background: repeating-linear-gradient($taproot-dark, $taproot-dark 0.163525%, $taproot-light 100%) !important;
+  background: linear-gradient(rgb(247, 148, 34), rgb(229 161 82 / 55%)) !important;
   animation: shadowyBackground 1s infinite;
   box-shadow: -10px -15px 75px rgba($taproot, 1);
   transition: 100ms all ease-in;

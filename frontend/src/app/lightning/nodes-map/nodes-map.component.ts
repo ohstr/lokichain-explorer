@@ -165,7 +165,7 @@ export class NodesMap implements OnInit, OnChanges {
         roam: true,
         itemStyle: {
           borderColor: 'black',
-          color: '#272b3f'
+          color: '#2b3522'
         },
         scaleLimit: {
           min: 1.3,
