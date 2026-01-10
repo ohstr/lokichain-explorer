@@ -35,7 +35,7 @@ class NetworkSyncService {
       logger.debug(`Updating nodes and channels`, logger.tags.ln);
 
       const networkGraph = await lightningApi.$getNetworkGraph();
-      if (networkGraph.nodes.length === 0 || networkGraph.edges.length === 0) {
+      if (networkGraph.nodes.length === 0 && networkGraph.edges.length === 0) {
         logger.info(`LN Network graph is empty, retrying in 10 seconds`, logger.tags.ln);
         setTimeout(() => { this.$runTasks(); }, 10000);
         return;

@@ -19,7 +19,8 @@ class LndApi implements AbstractLightningApi {
           'Grpc-Metadata-macaroon': fs.readFileSync(config.LND.MACAROON_PATH).toString('hex'),
         },
         httpsAgent: new Agent({
-          ca: fs.readFileSync(config.LND.TLS_CERT_PATH)
+          ca: fs.readFileSync(config.LND.TLS_CERT_PATH),
+          rejectUnauthorized: false
         }),
         timeout: config.LND.TIMEOUT
       };
