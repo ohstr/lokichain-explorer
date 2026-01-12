@@ -81,20 +81,16 @@ export const contrastMempoolFeeColors = [
  ];
 
 export const chartColors = [
-  "#1a3023",
-  "#193023",
-  "#1a3022",
-  "#1a3123",
-  "#1b3022",
+  "#dca93f",
+  "#7b9888",
   "#cc7405",
-  "#222c19",
-  "#1f2b22",
-  "#222b19",
-  "#222b18",
-  "#ca7305",
-  "#232b18",
-  "#222a17",
-  "#173024",
+  "#3bcc49",
+  "#b86d12",
+  "#657454",
+  "#fff000",
+  "#554b45",
+  "#26301d",
+  "#9339f4",
 ];
 
 export const poolsColor = {
