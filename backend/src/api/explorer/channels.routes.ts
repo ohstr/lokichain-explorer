@@ -78,14 +78,19 @@ class ChannelsRoutes {
 
   private async $getChannelsByTransactionIds(req: Request, res: Response): Promise<void> {
     try {
-      if (!Array.isArray(req.query.txId)) {
-        handleError(req, res, 400, 'Not an array');
+      let txIdsParam = req.query.txId || req.query['txId[]'];
+      if (!txIdsParam) {
+        handleError(req, res, 400, 'Missing txId parameter');
         return;
       }
+      if (!Array.isArray(txIdsParam)) {
+        txIdsParam = [txIdsParam];
+      }
+
       const txIds: string[] = [];
-      for (const _txId in req.query.txId) {
-        if (typeof req.query.txId[_txId] === 'string') {
-          const txid = req.query.txId[_txId].toString();
+      for (const _txId in txIdsParam) {
+        if (typeof txIdsParam[_txId] === 'string') {
+          const txid = txIdsParam[_txId].toString();
           if (TXID_REGEX.test(txid)) {
             txIds.push(txid);
           }
